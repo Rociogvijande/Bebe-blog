@@ -2,10 +2,21 @@ const express = require("express");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const db = require("./database.js"); 
+const db = require("./database.js");
 const multer = require('multer');
+const path = require('path');
 
-const upload = multer({ dest: 'fotos/' });
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'fotos')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+  }
+});
+
+const upload = multer({ storage: storage });
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -17,6 +28,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use(express.static("public"));
+app.use("/fotos", express.static("fotos"));  // Servir estáticamente el directorio 'fotos'
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -51,8 +63,9 @@ app.post("/posts", upload.single('imagen'), (req, res) => {
     title: req.body.titulo,
     content: req.body.contenido,
     createdAt: new Date(),
-    user_img: req.file ? req.file.path : null, // usa la ruta del archivo si se ha subido una imagen
+    user_img: req.file ? req.file.path.replace(/\\/g, "/") : null, // usa la ruta del archivo si se ha subido una imagen
   };
+  
 
   db.query(
     "INSERT INTO posts (title, content, date, image) VALUES (?, ?, ?, ?)",
@@ -105,8 +118,6 @@ app.delete("/posts/:id",  (req, res) => {
 app.listen(port, () => {
   console.log(`Servidor iniciado en el puerto ${port}`);
 });
-
-  
 //   // Editar un post por su ID
   // app.put("/posts/:id", (req, res) => {
   //   const postId = req.params.id;
