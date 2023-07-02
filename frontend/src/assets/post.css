@@ -2,9 +2,9 @@
 .card {
     width: 18 pxN;
     font-family: 'Maven Pro', sans-serif;
-    border: 8px solid rgb(11, 138, 131);
+    border: 3px solid #1ee7dd;
     border-radius: 10px;
-    background-color: #8f2020;
+    background-color: #ffffff;
     margin-bottom: 2rem;
     margin-right: 2rem;
     box-shadow: 0 2px 4px rgba(29, 26, 26, 0.2);

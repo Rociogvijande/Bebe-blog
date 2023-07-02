@@ -5,20 +5,23 @@ function Card({ imgSrc, title, text, handleEdit, handleDelete, handleReadMore })
   const imagePath = imgSrc.replace(/\\/g, '/');
 
   return (
-    <div className="card mb-4" style={{ width: '100%' }} >
-     <img className="card-img-top" src={imagePath} alt="Card image cap" />
+    <div className="card mb-4" style={{ width: '100%' }}>
+      <img className="card-img-top" src={imagePath} alt="Card image cap" />
 
       <div className="card-body">
         <h2 className="card-title">{title}</h2>
-        <p className="card-text">{text} <a href="#" className="card-link" onClick={handleReadMore}>
-          Leer más
-        </a></p>
+        <p className="card-text">
+          {text}{' '}
+          <a href="#" className="card-link" onClick={handleReadMore}>
+            Leer más
+          </a>
+        </p>
         <div className="card-buttons">
           <button className="btn btn-primary" onClick={handleEdit}>
-            <PencilSquare /> 
+            <PencilSquare />
           </button>
           <button className="btn btn-secondary" onClick={handleDelete}>
-            <Trash /> 
+            <Trash />
           </button>
         </div>
       </div>
@@ -60,8 +63,24 @@ function Post() {
     console.log(`Editar post con ID ${postId}`);
   };
 
-  const handleDelete = (postId) => {
-    console.log(`Eliminar post con ID ${postId}`);
+  const handleDelete = async (postId) => {
+    try {
+      const response = await fetch(`http://localhost:3000/posts/${postId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        console.log(`Post eliminado con ID ${postId}`);
+
+        // Actualizar la lista de posts después de eliminar
+        const updatedPosts = posts.filter((post) => post.id !== postId);
+        setPosts(updatedPosts);
+      } else {
+        console.error(`Error al eliminar el post con ID ${postId}`);
+      }
+    } catch (error) {
+      console.error(`Error al eliminar el post con ID ${postId}:`, error);
+    }
   };
 
   const truncateText = (text, maxLength) => {
@@ -78,7 +97,7 @@ function Post() {
           {groupedPosts.map((group, index) => (
             <div key={index} className="row">
               {group.map((post, postIndex) => (
-                <div className="col-6 mb-4" key={postIndex}>
+                <div className="col-lg-6 mb-4" key={postIndex}>
                   <Card
                     imgSrc={`http://localhost:3000/${post.image}`}
                     title={post.title}

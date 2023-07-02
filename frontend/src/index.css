@@ -1,12 +1,6 @@
 
-
-@import url(./assets/navbar.css);
-@import url(./assets/nuevopost.css);
-@import url(./assets/post.css);
-@import url(./assets/titulo.css);
-
-.footer{
-    position: fixed;
-    background-color: #3f5664;
-    
-}
+@import url('./assets/footer.css');
+@import url('./assets/navbar.css');
+@import url('./assets/nuevopost.css');
+@import url('./assets/post.css');
+@import url('./assets/titulo.css');
