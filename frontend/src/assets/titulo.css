@@ -1,0 +1,15 @@
+.bg{
+    background-color: #9dadb8;
+}
+
+.titulo{
+    font-family: 'Varela Round', sans-serif;
+    font-size: 5em;
+    color: #1ee7dd; 
+}
+
+.subtitulo {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 0.75cm;
+    color: #fff;
+}

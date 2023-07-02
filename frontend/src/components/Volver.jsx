@@ -7,14 +7,14 @@ const NavbarComponent = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/nuevopost'); // Navegar a la ruta especificada
+    navigate('/'); // Navegar a la ruta especificada
   };
 
   return (
     <Navbar expand="lg" collapseOnSelect>
       <Nav className="ms-auto">
         <Nav.Item>
-          <button className='btn btn-secondary' onClick={handleClick} type="submit">Añadir entrada</button>
+          <button className='btn btn-secondary' onClick={handleClick} type="submit">Volver</button>
         </Nav.Item>
       </Nav>
     </Navbar>
