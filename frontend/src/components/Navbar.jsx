@@ -14,7 +14,9 @@ const NavbarComponent = () => {
     <Navbar expand="lg" collapseOnSelect>
       <Nav className="ms-auto">
         <Nav.Item>
+        <div className="text-center">
           <button className='btn btn-secondary' onClick={handleClick} type="submit">Añadir entrada</button>
+          </div>
         </Nav.Item>
       </Nav>
     </Navbar>

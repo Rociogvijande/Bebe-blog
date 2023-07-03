@@ -50,8 +50,8 @@ function Post() {
         }
         
         const data = await response.json();
-        console.log('Data received:', data); // Add this line to inspect your data.
-        setPosts(data);
+        console.log('Data received:', data); 
+        setPosts(data.reverse()); 
       } catch (error) {
         console.error("Error al obtener los posts:", error);
       }

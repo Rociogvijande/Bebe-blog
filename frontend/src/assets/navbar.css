@@ -1,12 +1,7 @@
 .navbar {
     background-color: #1ee7dd;
-    display: flex;
-    justify-content: center;
     width: 100%;
     
   }
   
-  .nav-link {
-    text-align: center;
-  }
-  
+ 

@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+Nombre del proyecto : Bebé blog
+Este proyecto se trata de un blog dedicado a temas relacionados con el mundo de los bebés. 
+Aquí encontrarás información útil, consejos, recomendaciones y experiencias sobre el cuidado, la crianza, la alimentación, la salud y otros aspectos importantes relacionados con los bebés.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+--------------------------------------------------------------------
+![Feed 1](image.png)
+![Feed 2](image-1.png)
+![Añadir entrada](image-2.png)
+![Detalle entrada](image-3.png)
 
-## Available Scriptssadadadad
 
-In the project directory, you can run:
+----Tecnologías utilizadas----
+NodeJS
+React
+CSS (utilizando la librería Bootstrap)
+HTML
+MySQL
 
-### `npm start`
+----Descripción----
+Realizaremos un blog sencillo con un sistema CRUD (Create, Read, Update, Delete). Esto significa que tendremos un sistema que nos permitirá crear entradas, mostrarlas en el feed de la página principal, editar esas entradas y eliminarlas, todo de manera dinámica.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Las entradas se guardarán en una base de datos MySQL, donde crearemos una tabla llamada "posts". Las imágenes se almacenarán en el servidor (en una carpeta pública) y guardaremos la ruta de cada imagen en la tabla de "posts" para poder mostrar las imágenes correctamente en la página.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+El diseño es libre, excepto por los requisitos básicos de estructura HTML y que el feed esté centrado en la pantalla. Además, el diseño debe ser responsive.
 
-### `npm test`
+----Partes de la aplicación----
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+El proyecto se dividirá en varias partes, entre las cuales se encuentran:
 
-### `npm run build`
+-Home: Incluye el feed del blog con un loop para mostrar las entradas existentes. Cada entrada contendrá una imagen, un título, una fecha de publicación y un extracto del contenido. Además, se incluirá un botón de borrado.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+-Header: Con el nombre del blog.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+-Nav: Permitirá agregar nuevas entradas.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+-Entrada única completa: Mostrará una entrada en tamaño completo cuando se acceda a ella desde el feed. Incluirá una imagen, un título, una fecha de publicación y el contenido completo. También se agregarán botones de edición, guardado (en modo edición) y borrado.
 
-### `npm run eject`
+-Página de añadir entrada: Proporcionará una plantilla básica con campos de entrada para capturar la información necesaria. Los campos incluyen adjuntar imagen, título de la entrada, contenido de la entrada y fecha automática. Se agregará un botón de guardar para guardar la entrada en la base de datos y almacenar la imagen en el servidor.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+-----Sistemas------
+-Editar entrada
+Al hacer clic en el botón de editar, todos los campos de la entrada única cambiarán a modo de edición, lo que permitirá modificar los campos deseados.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+-Borrar entrada
+Con un simple botón se eliminará la entrada de la tabla "posts" enviando su ID al backend. No solo se eliminará de la base de datos, sino que también se deberá eliminar la imagen almacenada en el servidor para evitar ocupar espacio innecesario. 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+------DEPENDENCIAS------
+Este proyecto utiliza NodeJS, React y Bootstrap como tecnologías principales. A continuación, se proporciona una breve descripción de cada una:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+-NodeJS: Utilizamos NodeJS para desarrollar el backend de nuestro blog y gestionar la interacción con la base de datos.
 
-## Learn More
+-React: Se utiliza para desarrollar el frontend de nuestra aplicación, creando componentes reutilizables que se actualizan de manera eficiente en función de los cambios en los datos.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Bootstrap: Para estilizar y darle formato a nuestros componentes y páginas.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+-----VARIABLES DE ENTORNO -----
+Este proyecto utiliza las siguientes variables de entorno para la configuración:
 
-### Code Splitting
+PORT: El puerto en el que se ejecutará el servidor. Por defecto, se establece en 3000.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+DB_HOST: El host de la base de datos. Por defecto, se establece en localhost.
 
-### Analyzing the Bundle Size
+DB_USER: El nombre de usuario de la base de datos. Por defecto, se establece en root.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+DB_NAME: El nombre de la base de datos a utilizar. Por defecto, se establece en blog_bd.
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+-----Requisitos técnicos---
+Es importante destacar que para poder ejecutar este proyecto, es necesario tener instalado NodeJS y las dependencias especificadas en el archivo package.json. Esto se puede hacer ejecutando el comando npm install en ambas carpetas (backend y frontend) para instalar todas las dependencias especificadas en los archivos package.json. Después sigue los siguientes pasos:
 
-### Advanced Configuration
+Pasos a seguir:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Una vez instalados, abrir una terminal o línea de comandos.
+-Navega a la carpeta del backend del proyecto.
+-Ejecuta el comando npm start en la terminal para iniciar el servidor backend.
+-Abre otra terminal o línea de comandos (manteniendo la primera terminal ejecutándose).
+-Navega a la carpeta del frontend del proyecto.
+-Ejecuta el comando npm start en la segunda terminal para iniciar el servidor de desarrollo del frontend.
 
-### Deployment
+Esto permitirá que tanto el servidor backend como el servidor de desarrollo del frontend se ejecuten simultáneamente. 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Después de ejecutar estos comandos, la aplicación se ejecutará automáticamente.

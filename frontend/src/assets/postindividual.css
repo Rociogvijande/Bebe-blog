@@ -1,0 +1,18 @@
+.post-content {
+    border: 0.5rem solid #1ee7dd;
+    background-color:  #c8cfd4;
+    padding: 2px;
+    border: radius 5px;
+    box-shadow: 0px 0px 10px rgba(8, 8, 8, 0.1);
+
+  }
+  
+  .form-control {
+    word-wrap: break-word;
+    border: none;
+    background: #ffffff;
+    resize: none;
+  height: auto;
+  }
+
+  

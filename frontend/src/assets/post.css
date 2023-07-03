@@ -1,9 +1,9 @@
 
 .card {
-    width: 8 px;
+    width: 15 px;
     font-family: 'Maven Pro', sans-serif;
-    border: 3px solid #1ee7dd;
-    border-radius: 10px;
+    border: 1rem solid #1ee7dd;
+    border-radius: 20px;
     background-color: #ffffff;
     margin-bottom: 2rem;
     margin-right: 2rem;
@@ -16,7 +16,7 @@
   }
 
   .card-buttons button {
-    border: 1px solid #333;
+    border: 2px solid #6b6060;
     border-radius: 5px;
     padding: 5px 10px;
     margin-right: 10px;
@@ -26,3 +26,7 @@
     background-color: #ccc;
     color: #fff;
   }
+
+  .container {
+  margin-bottom: 5px; 
+}

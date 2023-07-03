@@ -60,12 +60,7 @@ const PostIndividual = () => {
           </div>
           <div
             className="post-content"
-            style={{
-              background: "#f7f7f7",
-              padding: "20px",
-              borderRadius: "10px",
-              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-            }}
+            
           >
             <h1 className="text-center">{post.title}</h1>
             <p className="text-center">
@@ -73,7 +68,7 @@ const PostIndividual = () => {
             </p>
             <textarea
               className="form-control"
-              rows="13"
+              rows="5"
               style={{
                 wordWrap: "break-word",
                 border: "none",
