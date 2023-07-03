@@ -1,20 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { PencilSquare, Trash } from 'react-bootstrap-icons';
+import React, { useEffect, useState } from "react";
+import { PencilSquare, Trash } from "react-bootstrap-icons";
+import { NavLink } from "react-router-dom";
 
-function Card({ imgSrc, title, text, handleEdit, handleDelete, handleReadMore }) {
-  const imagePath = imgSrc.replace(/\\/g, '/');
+function Card({
+  id,
+  imgSrc,
+  title,
+  text,
+  handleEdit,
+  handleDelete,
+  handleReadMore,
+}) {
+  const imagePath = imgSrc.replace(/\\/g, "/");
 
   return (
-    <div className="card mb-4" style={{ width: '100%' }}>
+    <div className="card mb-4" style={{ width: "80%" }}>
+      <NavLink to={`/posts/${id}`}></NavLink>
       <img className="card-img-top" src={imagePath} alt="Card image cap" />
-
       <div className="card-body">
-        <h2 className="card-title">{title}</h2>
+        <h2 className="card-title">
+          <NavLink to={`/posts/${id}`}>{title}</NavLink>
+        </h2>
         <p className="card-text">
-          {text}{' '}
-          <a href="#" className="card-link" onClick={handleReadMore}>
-            Leer más
-          </a>
+          {text}{" "}
+          <NavLink to={`/posts/${id}`} className="card-link">
+            Leer más{" "}
+          </NavLink>
         </p>
         <div className="card-buttons">
           <button className="btn btn-primary" onClick={handleEdit}>
@@ -40,24 +51,17 @@ function Post() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('http://localhost:3000/posts');
+        const response = await fetch("http://localhost:3000/posts");
         const data = await response.json();
 
         setPosts(data);
       } catch (error) {
-        console.error('Error al obtener los posts:', error);
+        console.error("Error al obtener los posts:", error);
       }
     };
 
     fetchPosts();
   }, []);
-
-  const chunkSize = 2;
-
-  const groupedPosts = [];
-  for (let i = 0; i < posts.length; i += chunkSize) {
-    groupedPosts.push(posts.slice(i, i + chunkSize));
-  }
 
   const handleEdit = (postId) => {
     console.log(`Editar post con ID ${postId}`);
@@ -66,7 +70,7 @@ function Post() {
   const handleDelete = async (postId) => {
     try {
       const response = await fetch(`http://localhost:3000/posts/${postId}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
 
       if (response.ok) {
@@ -87,27 +91,26 @@ function Post() {
     if (text.length <= maxLength) {
       return text;
     }
-    return text.substr(0, maxLength) + '...';
+    return text.substr(0, maxLength) + "...";
   };
 
   return (
     <main>
       <div className="container">
         <div className="row justify-content-center mt-4">
-          {groupedPosts.map((group, index) => (
-            <div key={index} className="row">
-              {group.map((post, postIndex) => (
-                <div className="col-lg-6 mb-4" key={postIndex}>
-                  <Card
-                    imgSrc={`http://localhost:3000/${post.image}`}
-                    title={post.title}
-                    text={truncateText(post.content, 50)}
-                    handleEdit={() => handleEdit(post.id)}
-                    handleDelete={() => handleDelete(post.id)}
-                    handleReadMore={() => handleReadMore(post.id)}
-                  />
-                </div>
-              ))}
+          {posts.map((post, index) => (
+            <div className="col-lg-4 mb-4" key={post.id}>
+              <Card
+                id={post.id}
+                imgSrc={`http://localhost:3000/${post.image}`}
+                title={post.title}
+                text={truncateText(post.content, 50)}
+                handleEdit={() => handleEdit(post.id)}
+                handleDelete={() => handleDelete(post.id)}
+                handleReadMore={() => handleReadMore(post.id)}
+              />
+
+              {(index + 1) % 3 === 0 && <div className="w-100"></div>}
             </div>
           ))}
         </div>
