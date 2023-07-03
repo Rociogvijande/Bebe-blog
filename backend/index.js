@@ -58,6 +58,36 @@ app.get("/posts", (req, res) => {
   );
 });
 
+app.get("/posts/:id", (req, res) => {
+  const postId = req.params.id;
+
+  db.query(
+    "SELECT id, image, title, date, content FROM posts WHERE id = ?",
+    [postId],
+    (err, results) => {
+      if (err) {
+        console.error("Error al obtener el detalle del post:", err);
+        res.status(500).json({
+          message:
+            "Ha ocurrido un error al obtener el detalle del post. Por favor, intenta más tarde.",
+        });
+        return;
+      }
+
+      if (results.length === 0) {
+        res
+          .status(404)
+          .json({ message: "No se encontró el post con el ID especificado." });
+        return;
+      }
+
+      const post = results[0];
+      res.json(post);
+    }
+  );
+});
+
+
 app.post("/posts", upload.single('imagen'), (req, res) => {
   const newPost = {
     title: req.body.titulo,
@@ -115,44 +145,41 @@ app.delete("/posts/:id",  (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Servidor iniciado en el puerto ${port}`);
-});
-//   // Editar un post por su ID
-  // app.put("/posts/:id", (req, res) => {
-  //   const postId = req.params.id;
-  //   const { title, content } = req.body;
-  //   const updatedAt = new Date();
+  // Editar un post por su ID
+  app.put("/posts/:id", (req, res) => {
+    const postId = req.params.id;
+    const { title, content } = req.body;
+    const updatedAt = new Date();
   
-  //   if (!title && !content) {
-  //     res.status(400).json({
-  //       message:
-  //         "Debes proporcionar al menos un campo (título o contenido) para editar el post.",
-  //     });
-  //     return;
-  //   }
+    if (!title && !content) {
+      res.status(400).json({
+        message:
+          "Debes proporcionar al menos un campo (título o contenido) para editar el post.",
+      });
+      return;
+    }
   
-  //   const sql =
-  //     "UPDATE posts SET title = ?, content = ?, updatedAt = ? WHERE id = ?";
-  //   db.query(sql, [title, content, updatedAt, postId], (err, result) => {
-  //     if (err) {
-  //       console.error("Error al editar el post:", err);
-  //       res.status(500).json({
-  //         message:
-  //           "Ha ocurrido un error al editar el post. Por favor, intenta más tarde.",
-  //       });
-  //       return;
-  //     }
+    const sql =
+      "UPDATE posts SET title = ?, content = ? WHERE id = ?";
+    db.query(sql, [title, content,  postId], (err, result) => {
+      if (err) {
+        console.error("Error al editar el post:", err);
+        res.status(500).json({
+          message:
+            "Ha ocurrido un error al editar el post. Por favor, intenta más tarde.",
+        });
+        return;
+      }
   
-  //     if (result.affectedRows === 0) {
-  //       res
-  //         .status(404)
-  //         .json({ message: "No se encontró el post con el ID especificado." });
-  //       return;
-  //     }
+      if (result.affectedRows === 0) {
+        res
+          .status(404)
+          .json({ message: "No se encontró el post con el ID especificado." });
+        return;
+      }
   
-  //     res.json({ message: "El post ha sido editado correctamente." });
-  //   });
-  // });
+      res.json({ message: "El post ha sido editado correctamente." });
+    });
+  });
 
 

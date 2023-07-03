@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { PencilSquare, Trash } from "react-bootstrap-icons";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Card({
   id,
@@ -23,8 +23,12 @@ function Card({
         </h2>
         <p className="card-text">
           {text}{" "}
-          <NavLink to={`/posts/${id}`} className="card-link">
-            Leer más{" "}
+          <NavLink
+            to={`/posts/${id}`}
+            className="card-link"
+            onClick={handleReadMore}
+          >
+            Leer más
           </NavLink>
         </p>
         <div className="card-buttons">
@@ -42,9 +46,9 @@ function Card({
 
 function Post() {
   const [posts, setPosts] = useState([]);
+  const navigate = useNavigate();
 
-  const handleReadMore = (event, postId) => {
-    event.preventDefault();
+  const handleReadMore = (postId) => {
     console.log(`Leer más sobre la entrada con ID ${postId}`);
   };
 
@@ -64,7 +68,7 @@ function Post() {
   }, []);
 
   const handleEdit = (postId) => {
-    console.log(`Editar post con ID ${postId}`);
+    navigate(`/posts/editar/${postId}`);
   };
 
   const handleDelete = async (postId) => {
@@ -107,7 +111,7 @@ function Post() {
                 text={truncateText(post.content, 50)}
                 handleEdit={() => handleEdit(post.id)}
                 handleDelete={() => handleDelete(post.id)}
-                handleReadMore={() => handleReadMore(post.id)}
+                handleReadMore={handleReadMore}
               />
 
               {(index + 1) % 3 === 0 && <div className="w-100"></div>}
