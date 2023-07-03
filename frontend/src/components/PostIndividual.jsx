@@ -48,19 +48,24 @@ const PostIndividual = () => {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="container mt-2">
       <div className="row">
         <div className="col-md-8 offset-md-2">
           <div className="d-flex justify-content-center">
             <img
               src={`http://localhost:3000/${post.image}`}
-              className="img-fluid rounded mb-4"
-              alt="Imagen del post"
+              className="img-fluid rounded mb-3"
+              alt="Imagen de post"
             />
           </div>
           <div
             className="post-content"
-            style={{ background: "#f7f7f7", padding: "20px" }}
+            style={{
+              background: "#f7f7f7",
+              padding: "20px",
+              borderRadius: "10px",
+              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+            }}
           >
             <h1 className="text-center">{post.title}</h1>
             <p className="text-center">
@@ -68,24 +73,22 @@ const PostIndividual = () => {
             </p>
             <textarea
               className="form-control"
-              rows="15"
-              style={{ wordWrap: "break-word" }}
+              rows="13"
+              style={{
+                wordWrap: "break-word",
+                border: "none",
+                background: "#ffffff",
+               
+              }}
               value={post.content}
               readOnly
             ></textarea>
           </div>
-          <div className="d-flex justify-content-center mt-2">
-            <button className="btn btn-primary me-2" onClick={handleEditClick}>
-              Editar
-            </button>
-            <button className="btn btn-danger" onClick={handleDeletePost}>
-              Borrar
-            </button>
-          </div>
+         
         </div>
       </div>
     </div>
   );
 };
-export default PostIndividual
 
+export default PostIndividual;

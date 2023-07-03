@@ -9,34 +9,27 @@ function Card({
   text,
   handleEdit,
   handleDelete,
-  handleReadMore,
 }) {
   const imagePath = imgSrc.replace(/\\/g, "/");
 
   return (
-    <div className="card mb-4" style={{ width: "80%" }}>
-      <NavLink to={`/posts/${id}`}></NavLink>
-      <img className="card-img-top" src={imagePath} alt="Card image cap" />
-      <div className="card-body">
+    <div className="card mb-4" style={{ width: "100%" }}>
+      <NavLink to={`/posts/${id}`}>
+        <img className="card-img-top" src={imagePath} alt="Card image cap" />
+      </NavLink>
+      <div className="card-body text-center">
         <h2 className="card-title">
-          <NavLink to={`/posts/${id}`}>{title}</NavLink>
-        </h2>
-        <p className="card-text">
-          {text}{" "}
-          <NavLink
-            to={`/posts/${id}`}
-            className="card-link"
-            onClick={handleReadMore}
-          >
-            Leer más
+          <NavLink to={`/posts/${id}`} className="card-link text-decoration-none text-dark">
+            {title}
           </NavLink>
-        </p>
+        </h2>
+        <p className="card-text">{text}</p>
         <div className="card-buttons">
-          <button className="btn btn-primary" onClick={handleEdit}>
-            <PencilSquare />
+          <button className="btn btn-primary" onClick={() => handleEdit(id)}>
+            <PencilSquare /> Editar
           </button>
-          <button className="btn btn-secondary" onClick={handleDelete}>
-            <Trash />
+          <button className="btn btn-danger" onClick={() => handleDelete(id)}>
+            <Trash /> Eliminar
           </button>
         </div>
       </div>
@@ -48,24 +41,25 @@ function Post() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
 
-  const handleReadMore = (postId) => {
-    console.log(`Leer más sobre la entrada con ID ${postId}`);
-  };
-
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const response = await fetch("http://localhost:3000/posts");
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const data = await response.json();
-
+        console.log('Data received:', data); // Add this line to inspect your data.
         setPosts(data);
       } catch (error) {
         console.error("Error al obtener los posts:", error);
       }
     };
-
+  
     fetchPosts();
   }, []);
+  
 
   const handleEdit = (postId) => {
     navigate(`/posts/editar/${postId}`);
@@ -109,12 +103,9 @@ function Post() {
                 imgSrc={`http://localhost:3000/${post.image}`}
                 title={post.title}
                 text={truncateText(post.content, 50)}
-                handleEdit={() => handleEdit(post.id)}
-                handleDelete={() => handleDelete(post.id)}
-                handleReadMore={handleReadMore}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
               />
-
-              {(index + 1) % 3 === 0 && <div className="w-100"></div>}
             </div>
           ))}
         </div>

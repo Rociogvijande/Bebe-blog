@@ -40,16 +40,23 @@ const PostEditado = () => {
 
   const handleSaveClick = async () => {
     try {
-      const formData = new FormData();
-      formData.append("title", editedPost.title);
-      formData.append("content", editedPost.content);
-      formData.append("image", editedPost.image);
-
+      const requestData = {
+        title: editedPost.title,
+        content: editedPost.content,
+      };
+  
+      if (editedPost.image) {
+        requestData.image = editedPost.image;
+      }
+  
       const response = await fetch(`http://localhost:3000/posts/${id}`, {
         method: "PUT",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
       });
-
+  
       if (response.ok) {
         const data = await response.json();
         console.log("Post editado:", data);
